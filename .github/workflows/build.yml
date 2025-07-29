@@ -56,5 +56,30 @@ jobs:
 
       - name: Run tests
         run: npm test
-        
+    docker:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Docker build and push (Node 18 only)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download dist from Node 18 build
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-node-18
+          path: dist/
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest
+      
   
