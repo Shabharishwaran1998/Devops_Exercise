@@ -27,3 +27,9 @@ jobs:
 
       - name: Compile project
         run: npm run build
+            - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-node-${{ matrix.node }}
+          path: dist/
+  
