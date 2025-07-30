@@ -79,7 +79,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest
       
   
