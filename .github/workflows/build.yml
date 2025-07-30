@@ -79,9 +79,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          ls -la
-          ls -la dist
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest .
+          docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/node-ts-ci-example:latest
       
   
